@@ -108,7 +108,7 @@ function renderClips(){
 
 async function composeSingleClip(clip) {
     try {
-        const newBlob = recorder.getContinuousBlob(clip.startTime, clip.endTime);
+        const newBlob = clip.rawBlob || recorder.getContinuousBlob(clip.startTime, clip.endTime);
         if (newBlob.size === 0) {
             console.warn(`Skipping composition for clip ${clip.id} due to empty blob.`);
             throw new Error("Empty blob for composition");
