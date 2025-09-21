@@ -17,6 +17,7 @@ class Composer {
     const { outroSeconds = 3, logoUrl, outroAudio, outroAudioRegion } = opts;
 
     const ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state === 'suspended') await ac.resume();
 
     const stream = this.canvas.captureStream(this.fps);
     const mixDest = ac.createMediaStreamDestination();
@@ -162,9 +163,10 @@ class Composer {
   _loadImage(url) {
     return new Promise((res, rej) => {
       const i = new Image();
+      i.crossOrigin = "anonymous";
       i.onload = () => res(i);
       i.onerror = rej;
-      i.src = url;
+      i.src = encodeURI(url);
     });
   }
 
@@ -194,6 +196,7 @@ export async function concatenateClips(blobs, opts) {
 
     const stream = canvas.captureStream(fps);
     const ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state === 'suspended') await ac.resume();
     const mixDest = ac.createMediaStreamDestination();
     const masterGain = ac.createGain();
     masterGain.gain.value = 1.0;
@@ -209,9 +212,10 @@ export async function concatenateClips(blobs, opts) {
     const _loadImage = (url) => {
         return new Promise((res, rej) => {
             const i = new Image();
+            i.crossOrigin = "anonymous";
             i.onload = () => res(i);
             i.onerror = rej;
-            i.src = url;
+            i.src = encodeURI(url);
         });
     }
 

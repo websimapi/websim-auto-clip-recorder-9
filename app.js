@@ -199,7 +199,7 @@ document.getElementById("btn-compose").addEventListener("click", async ()=>{
       height:720, 
       fps:30,
       outroSeconds: 3,
-      logoUrl: "/logowhite.png",
+      logoUrl: "/logowhite (1).png",
       outroAudio: outro.file,
       outroAudioRegion: outro.region || null
     });
